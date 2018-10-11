@@ -1,9 +1,9 @@
 const routes = new Set()
 
 export function Route(route, element) {
-  //routes.add(route, element)
-  return function run(cl) {
-    console.log('Route decorator ran')
+  return function run(self) {
+    routes.add({route, self})
+    console.log('Route decorator ran', self)
   }
 }
 

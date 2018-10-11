@@ -9,8 +9,11 @@ var routes = new Set();
 exports.routes = routes;
 
 function Route(route, element) {
-  //routes.add(route, element)
-  return function run(cl) {
-    console.log('Route decorator ran');
+  return function run(self) {
+    routes.add({
+      route: route,
+      self: self
+    });
+    console.log('Route decorator ran', self);
   };
 }

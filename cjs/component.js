@@ -7,6 +7,10 @@ exports.PageRouter = void 0;
 
 var _widgets = require("@scoutgg/widgets");
 
+var _component = require("@scoutgg/widgets/cjs/decorators/component");
+
+var _decorator = require("./decorator");
+
 var _page = _interopRequireDefault(require("page"));
 
 var _dec, _dec2, _class;
@@ -40,7 +44,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["<h1>Hello!</h1>"]);
+  var data = _taggedTemplateLiteral(["", ""]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -51,9 +55,8 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-console.log('loaded', _widgets.Component);
 var PageRouter = (_dec = (0, _widgets.Component)('ang'), _dec2 = (0, _widgets.Template)(function (html) {
-  html(_templateObject());
+  html(_templateObject(), this.route);
 }), _dec(_class = _dec2(_class =
 /*#__PURE__*/
 function (_HTMLElement) {
@@ -68,7 +71,30 @@ function (_HTMLElement) {
   _createClass(PageRouter, [{
     key: "connectedCallback",
     value: function connectedCallback() {
-      console.log('im connected');
+      var _this = this;
+
+      this.route = '';
+
+      _decorator.routes.forEach(function (route) {
+        (0, _page.default)(route.route, function (context, next) {
+          var elem = document.createElement((0, _component.getTagName)(route.self));
+          Object.keys(context.params).forEach(function (attribute) {
+            if (!isNaN(attribute)) return;
+            elem.setAttribute(attribute, context.params[attribute]);
+          });
+          _this.route = elem;
+
+          _this.render(function () {
+            _this.emit('routeChanged', {
+              context: context
+            });
+          });
+        });
+      });
+
+      (0, _page.default)();
+      var pathname = window.location.hash.slice(1);
+      if (pathname) (0, _page.default)(pathname);
     }
   }]);
 
