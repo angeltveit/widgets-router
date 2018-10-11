@@ -1,0 +1,7 @@
+{
+  "plugins": [
+    ["@babel/plugin-syntax-export-default-from"],
+    ["@babel/plugin-proposal-decorators", { "legacy": true }]
+  ],
+  "presets": ["@babel/env"]
+}
