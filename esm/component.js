@@ -16,9 +16,7 @@ export class PageRouter extends HTMLElement {
           elem.setAttribute(attribute, context.params[attribute])
         })
         this.route = elem
-        this.render(()=> {
-          this.emit('routeChanged', { context })
-        })
+        this.render()
       })
     })
     page()
