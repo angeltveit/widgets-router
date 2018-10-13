@@ -14,6 +14,5 @@ function Route(route, element) {
       route: route,
       self: self
     });
-    console.log('Route decorator ran', self);
   };
 }

@@ -84,11 +84,7 @@ function (_HTMLElement) {
           });
           _this.route = elem;
 
-          _this.render(function () {
-            _this.emit('routeChanged', {
-              context: context
-            });
-          });
+          _this.render();
         });
       });
 
