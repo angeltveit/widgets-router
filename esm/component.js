@@ -4,6 +4,7 @@ import { routes } from './decorator'
 import page from 'page'
 
 @Component('ang')
+@Attribute('hashbang', Boolean, { default: false })
 @Template(function (html) { html `${this.route}` })
 export class PageRouter extends HTMLElement {
   connectedCallback() {
@@ -19,8 +20,6 @@ export class PageRouter extends HTMLElement {
         this.render()
       })
     })
-    page()
-    const pathname = window.location.hash.slice(1)
-    if(pathname) page(pathname)
+    page({ hashbang: this.hashbang })
   }
 }

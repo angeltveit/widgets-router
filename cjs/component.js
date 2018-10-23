@@ -13,7 +13,7 @@ var _decorator = require("./decorator");
 
 var _page = _interopRequireDefault(require("page"));
 
-var _dec, _dec2, _class;
+var _dec, _dec2, _dec3, _class;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -55,9 +55,11 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var PageRouter = (_dec = (0, _widgets.Component)('ang'), _dec2 = (0, _widgets.Template)(function (html) {
+var PageRouter = (_dec = (0, _widgets.Component)('ang'), _dec2 = (0, _widgets.Attribute)('hashbang', Boolean, {
+  default: false
+}), _dec3 = (0, _widgets.Template)(function (html) {
   html(_templateObject(), this.route);
-}), _dec(_class = _dec2(_class =
+}), _dec(_class = _dec2(_class = _dec3(_class =
 /*#__PURE__*/
 function (_HTMLElement) {
   _inherits(PageRouter, _HTMLElement);
@@ -88,12 +90,12 @@ function (_HTMLElement) {
         });
       });
 
-      (0, _page.default)();
-      var pathname = window.location.hash.slice(1);
-      if (pathname) (0, _page.default)(pathname);
+      (0, _page.default)({
+        hashbang: this.hashbang
+      });
     }
   }]);
 
   return PageRouter;
-}(_wrapNativeSuper(HTMLElement))) || _class) || _class);
+}(_wrapNativeSuper(HTMLElement))) || _class) || _class) || _class);
 exports.PageRouter = PageRouter;
