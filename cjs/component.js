@@ -11,6 +11,8 @@ var _component = require("@scoutgg/widgets/cjs/decorators/component");
 
 var _decorator = require("./decorator");
 
+var _lodash = require("lodash");
+
 var _page = _interopRequireDefault(require("page"));
 
 var _dec, _dec2, _dec3, _class;
@@ -79,12 +81,16 @@ function (_HTMLElement) {
 
       _decorator.routes.forEach(function (route) {
         (0, _page.default)(route.route, function (context, next) {
-          var elem = document.createElement((0, _component.getTagName)(route.self));
+          if (!_this.route || _this.route.tagName.toLowerCase() !== (0, _component.getTagName)(route.self)) {
+            var elem = document.createElement((0, _component.getTagName)(route.self));
+            _this.route = elem;
+          }
+
           Object.keys(context.params).forEach(function (attribute) {
             if (!isNaN(attribute)) return;
-            elem.setAttribute(attribute, context.params[attribute]);
+
+            _this.route.setAttribute((0, _lodash.kebabCase)(attribute), context.params[attribute]);
           });
-          _this.route = elem;
 
           _this.render();
         });

@@ -1,6 +1,7 @@
 import { Component, Template, Attribute } from '@scoutgg/widgets'
 import { getTagName } from '@scoutgg/widgets/cjs/decorators/component'
 import { routes } from './decorator'
+import { kebabCase } from 'lodash'
 import page from 'page'
 
 @Component('ang')
@@ -11,12 +12,16 @@ export class PageRouter extends HTMLElement {
     this.route = ''
     routes.forEach(route => {
       page(route.route, (context, next) => {
-        const elem = document.createElement(getTagName(route.self))
+        if(!this.route || this.route.tagName.toLowerCase() !== getTagName(route.self)) {
+          const elem = document.createElement(getTagName(route.self))
+          this.route = elem
+        }
+
         Object.keys(context.params).forEach((attribute)=> {
           if(!isNaN(attribute)) return
-          elem.setAttribute(attribute, context.params[attribute])
+          this.route.setAttribute(kebabCase(attribute), context.params[attribute])
         })
-        this.route = elem
+
         this.render()
       })
     })
