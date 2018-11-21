@@ -81,7 +81,9 @@ function (_HTMLElement) {
 
       _decorator.routes.forEach(function (route) {
         (0, _page.default)(route.route, function (context, next) {
-          if (!_this.route || _this.route.tagName.toLowerCase() !== (0, _component.getTagName)(route.self)) {
+          var tagname = _this.route && _this.route.tagName.toLowerCase();
+
+          if (!_this.route || tagname !== (0, _component.getTagName)(route.self)) {
             var elem = document.createElement((0, _component.getTagName)(route.self));
             _this.route = elem;
           }

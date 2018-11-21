@@ -12,7 +12,8 @@ export class PageRouter extends HTMLElement {
     this.route = ''
     routes.forEach(route => {
       page(route.route, (context, next) => {
-        if(!this.route || this.route.tagName.toLowerCase() !== getTagName(route.self)) {
+        const tagname = this.route && this.route.tagName.toLowerCase()
+        if(!this.route || tagname !== getTagName(route.self)) {
           const elem = document.createElement(getTagName(route.self))
           this.route = elem
         }
@@ -21,7 +22,6 @@ export class PageRouter extends HTMLElement {
           if(!isNaN(attribute)) return
           this.route.setAttribute(kebabCase(attribute), context.params[attribute])
         })
-
         this.render()
       })
     })
